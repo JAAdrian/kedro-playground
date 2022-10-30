@@ -10,10 +10,12 @@ kedro-viz
 nbstripout~=0.4
 numpy
 pandas
+pandas-gbq
 pytest-cov~=3.0
 pytest-mock>=1.7.1, <2.0
 pytest~=6.2
 soundfile
 scikit-learn
 scipy
+tables
 tqdm
