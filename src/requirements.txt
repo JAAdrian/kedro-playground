@@ -8,6 +8,7 @@ kedro~=0.18.3
 kedro-telemetry~=0.2.0
 kedro-viz
 nbstripout~=0.4
+matplotlib
 numpy
 pandas
 pandas-gbq

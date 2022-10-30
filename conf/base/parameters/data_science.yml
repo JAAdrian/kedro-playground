@@ -10,3 +10,6 @@ model_options:
   features:
     - Hypothesis
     - Kurtosis
+
+plot_options:
+  file_path: "data/08_reporting/decision_boundary.png"

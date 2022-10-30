@@ -5,7 +5,7 @@ generated using Kedro 0.18.3
 
 from kedro.pipeline import Pipeline, node, pipeline
 
-from .nodes import split_data, train_model, test_model
+from .nodes import plot_decision_boundary, split_data, test_model, train_model
 
 
 def create_pipeline(**kwargs) -> Pipeline:
@@ -21,13 +21,19 @@ def create_pipeline(**kwargs) -> Pipeline:
                 func=train_model,
                 inputs=["X_train", "y_train"],
                 outputs="classifier",
-                name="model_training"
+                name="model_training",
             ),
             node(
                 func=test_model,
                 inputs=["classifier", "X_test", "y_test"],
                 outputs=None,
-                name="model_testing"
-            )
+                name="model_testing",
+            ),
+            node(
+                func=plot_decision_boundary,
+                inputs=["classifier", "X_train", "y_train", "params:plot_options"],
+                outputs=None,
+                name="model_plotting",
+            ),
         ]
     )
