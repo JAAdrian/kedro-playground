@@ -8,9 +8,9 @@ import pandas
 from scipy import stats
 
 
-def _execute_normality_test(signal: numpy.ndarray) -> int:
+def _execute_normality_test(signal: numpy.ndarray, significance_level: float) -> int:
     _, p_value = stats.normaltest(signal)
-    return int(p_value < 1e-3)
+    return int(p_value < significance_level)
 
 
 def _get_kurtosis(signal: numpy.ndarray) -> float:
@@ -26,7 +26,7 @@ def _parse_signal_type(file_name: str) -> int:
     return signal_type
 
 
-def compute_features(data_set: dict) -> pandas.DataFrame:
+def compute_features(data_set: dict, parameters: dict) -> pandas.DataFrame:
     features = pandas.DataFrame()
 
     for file_name, load_function in data_set.items():
@@ -34,7 +34,9 @@ def compute_features(data_set: dict) -> pandas.DataFrame:
         audio_signal, _ = load_function()
 
         for channel_id, channel_signal in enumerate(audio_signal.T):
-            hypothesis = _execute_normality_test(channel_signal)
+            hypothesis = _execute_normality_test(
+                channel_signal, parameters["significance_level"]
+            )
             kurtosis = _get_kurtosis(channel_signal)
 
             new_data = {

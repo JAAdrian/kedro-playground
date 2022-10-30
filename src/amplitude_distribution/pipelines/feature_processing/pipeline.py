@@ -13,7 +13,7 @@ def create_pipeline(**kwargs) -> Pipeline:
         [
             node(
                 func=compute_features,
-                inputs="raw_audio",
+                inputs=["raw_audio", "params:feature_parameters"],
                 outputs="features",
                 name="feature_processing",
             ),
