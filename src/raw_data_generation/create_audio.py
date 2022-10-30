@@ -6,7 +6,7 @@ from scipy import stats
 
 
 _NUM_FILES_TO_CREATE = 10
-_TARGET_DIRECTORY = r"flac_signals"
+_TARGET_DIRECTORY = r"data/01_raw"
 
 _LEN_SIGNAL_SEC = 5
 _NUM_CHANNELS = 2
