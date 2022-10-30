@@ -3,3 +3,12 @@
 #
 # Documentation for this file format can be found in "Parameters"
 # Link: https://kedro.readthedocs.io/en/0.18.3/kedro_project_setup/configuration.html#parameters
+
+data_creation:
+  target_directory: data/01_raw
+  num_files_to_create: 50
+  sample_rate: 16_000
+  num_channels: 2
+  len_signal_sec: 10
+  gaussian_gain: 0.2
+  laplace_gain: 0.07

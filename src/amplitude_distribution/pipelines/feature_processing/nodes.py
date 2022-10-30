@@ -3,8 +3,12 @@ This is a boilerplate pipeline 'feature_processing'
 generated using Kedro 0.18.3
 """
 
+import pathlib
+import uuid
+
 import numpy
 import pandas
+import soundfile
 from scipy import stats
 
 
@@ -24,6 +28,45 @@ def _parse_signal_type(file_name: str) -> int:
         signal_type = 1
 
     return signal_type
+
+
+def _get_gaussian_noise(len_samples: int, num_channels: int, gain: float):
+    return gain * numpy.random.randn(len_samples, num_channels)
+
+
+def _get_laplace_noise(len_samples: int, num_channels: int, gain: float):
+    return stats.laplace.rvs(loc=0, scale=gain, size=(len_samples, num_channels))
+
+
+def _get_filename(target_directory: pathlib.Path, type: str):
+    filename = (target_directory / (type + "_" + str(uuid.uuid4()))).with_suffix(
+        ".flac"
+    )
+    return filename.as_posix()
+
+
+def create_audio_files(parameters: dict):
+    target_directory = pathlib.Path(parameters["target_directory"])
+    if not target_directory.is_dir():
+        target_directory.mkdir()
+
+    len_samples = round(parameters["sample_rate"] * parameters["len_signal_sec"])
+
+    for _ in range(parameters["num_files_to_create"]):
+        filename = _get_filename(target_directory, type="gaussian")
+
+        signal = _get_gaussian_noise(
+            len_samples, parameters["num_channels"], parameters["gaussian_gain"]
+        )
+        soundfile.write(filename, signal, parameters["sample_rate"])
+
+    for _ in range(parameters["num_files_to_create"]):
+        filename = _get_filename(target_directory, type="laplace")
+
+        signal = _get_laplace_noise(
+            len_samples, parameters["num_channels"], parameters["laplace_gain"]
+        )
+        soundfile.write(filename, signal, parameters["sample_rate"])
 
 
 def compute_features(data_set: dict) -> pandas.DataFrame:
@@ -46,8 +89,6 @@ def compute_features(data_set: dict) -> pandas.DataFrame:
 
             this_features = pandas.DataFrame(new_data, index=[0])
 
-            features = pandas.concat(
-                (features, this_features), ignore_index=True
-            )
+            features = pandas.concat((features, this_features), ignore_index=True)
 
     return features
