@@ -15,5 +15,5 @@ features:
 
 classifier:
   type: pickle.PickleDataSet
-  filepath: data/06_models/ridge_classifier.pickle
+  filepath: data/06_models/logistic_classifier.pickle
   versioned: true

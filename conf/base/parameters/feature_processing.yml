@@ -4,8 +4,10 @@
 # Documentation for this file format can be found in "Parameters"
 # Link: https://kedro.readthedocs.io/en/0.18.3/kedro_project_setup/configuration.html#parameters
 
-data_creation:
+data_cleaning_and_creation:
+  clean_existing_data: true
   target_directory: data/01_raw
+  file_suffix: .flac
   num_files_to_create: 50
   sample_rate: 16_000
   num_channels: 2
