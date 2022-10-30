@@ -12,4 +12,4 @@ model_options:
     - Kurtosis
 
 plot_options:
-  file_path: "data/08_reporting/decision_boundary.png"
+  file_path: "data/08_reporting/model_plots/decision_boundary.png"

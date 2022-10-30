@@ -9,6 +9,6 @@ data_creation:
   num_files_to_create: 50
   sample_rate: 16_000
   num_channels: 2
-  len_signal_sec: 10
+  len_signal_sec: 5
   gaussian_gain: 0.2
   laplace_gain: 0.07
