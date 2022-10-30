@@ -1,0 +1,16 @@
+# This is a boilerplate parameters config generated for pipeline 'data_creation'
+# using Kedro 0.18.3.
+#
+# Documentation for this file format can be found in "Parameters"
+# Link: https://kedro.readthedocs.io/en/0.18.3/kedro_project_setup/configuration.html#parameters
+
+data_cleaning_and_creation:
+  clean_existing_data: true
+  target_directory: data/01_raw
+  file_suffix: .flac
+  num_files_to_create: 50
+  sample_rate: 16_000
+  num_channels: 2
+  len_signal_sec: 5
+  gaussian_gain: 0.2
+  laplace_gain: 0.07
